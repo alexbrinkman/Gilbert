@@ -13,5 +13,5 @@ test/version_tmp
 tmp
 
 # Ignore sublime workspace file.
-/mytennisstats.sublime-project
-/mytennisstats.sublime-workspace
+/gilbert.sublime-project
+/gilbert.sublime-workspace
