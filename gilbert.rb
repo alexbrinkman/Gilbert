@@ -52,11 +52,11 @@ point4.generate("40-0", 1)
 point5 = TennisPoint.new
 point5.generate("0-0", 2)
 point6 = TennisPoint.new
-point6.generate("0-15", 2)
+point6.generate("15-0", 2)
 point7 = TennisPoint.new
-point7.generate("0-30", 2)
+point7.generate("30-0", 2)
 point8 = TennisPoint.new
-point8.generate("0-40", 2)
+point8.generate("40-0", 2)
 
 point9 = TennisPoint.new
 point9.generate("0-0", 1)
