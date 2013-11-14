@@ -1,18 +1,9 @@
-*.gem
-*.rbc
-.bundle
-.config
-coverage
-InstalledFiles
-lib/bundler/man
-pkg
-rdoc
-spec/reports
-test/tmp
-test/version_tmp
-tmp
+# Don't include generated matches
 /matches
 
 # Ignore sublime workspace file.
 /gilbert.sublime-project
 /gilbert.sublime-workspace
+
+# Ignore the mac .DS_Store file
+.DS_Store
