@@ -4,9 +4,14 @@ class TennisPoint
 	:hit_location, :hit_side, :epxcoord, :epycoord, :spxcoord, :spycoord, :rally_count,
 	:break_point, :won_by
 
-	def generate(score, won_by)
-		@current_score = score
-		@player_serving = won_by
+  def initialize(fsp, ssp, fspw, sspw)
+    @first_serve_percentage = fsp
+    @second_serve_percentage = ssp
+    @first_serve_points_won = fspw
+    @second_serve_points_won = sspw
+  end
+
+	def generate
 		@fsxcoord = 357
 		@fsycoord = 260
 		@ssxcoord = nil
@@ -16,18 +21,34 @@ class TennisPoint
 		@epycoord = 160
 		@spxcoord = 323
 		@spycoord = 887
-		@rally_count = 7
+		@rally_count = generate_rally_count
 		@break_point = false
-		@won_by = won_by
+    @won_by = generate_who_won_point
 	end
 
-	private
+  # If I don't provide this, the init vars get into the json too.
+  def as_json options={}
+    {
+      "fsxcoord" => @fsxcoord,
+      "fsycoord" => @fsycoord,
+      "ssxcoord" => @ssxcoord,
+      "ssycoord" => @ssycoord,
+      "hit_side" => @hit_side,
+      "epxcoord" => @epxcoord,
+      "epycoord" => @epycoord,
+      "spxcoord" => @spxcoord,
+      "spycoord" => @spycoord,
+      "rally_count" => @rally_count,
+      "break_point" => @break_point,
+      "won_by" => @won_by
+    }
+  end
 
 	def next_score(current_score, won_by)
 
   	# Todo: There's got to be a better way to do this.
 
-  	if won_by == :server
+  	if won_by == 1
   		if current_score == "0-0"
   			return "15-0"
   		elsif current_score == "15-0"
@@ -35,7 +56,7 @@ class TennisPoint
   		elsif current_score == "30-0"
   			return "40-0"
   		elsif current_score == "40-0"
-  			return :game_over
+  			return :server_won
   		elsif current_score == "0-15"
   			return "15-15"
   		elsif current_score == "15-15"
@@ -43,7 +64,7 @@ class TennisPoint
   		elsif current_score == "30-15"
   			return "40-15"
   		elsif current_score == "40-15"
-  			return :game_over
+  			return :server_won
   		elsif current_score == "0-30"
   			return "15-30"
   		elsif current_score == "15-30"
@@ -51,7 +72,7 @@ class TennisPoint
   		elsif current_score == "30-30"
   			return "40-30"
   		elsif current_score == "40-30"
-  			return :game_over
+  			return :server_won
   		elsif current_score == "0-40"
   			return "15-40"
   		elsif current_score == "15-40"
@@ -63,7 +84,7 @@ class TennisPoint
   		elsif current_score == "40-A"
   			return "40-40"
   		elsif current_score == "A-40"
-  			return :game_over
+  			return :server_won
   		end
   	else
   		if current_score == "0-0"
@@ -91,19 +112,29 @@ class TennisPoint
   		elsif current_score == "40-30"
   			return "40-40"
   		elsif current_score == "0-40"
-  			return :game_over
+  			return :returner_won
   		elsif current_score == "15-40"
-  			return :game_over
+  			return :returner_won
   		elsif current_score == "30-40"
-  			return :game_over
+  			return :returner_won
   		elsif current_score == "40-40"
   			return "40-A"
   		elsif current_score == "40-A"
-  			return :game_over
+  			return :returner_won
   		elsif current_score == "A-40"
   			return "40-40"
   		end
   	end
+  end
+
+  private
+
+  def generate_who_won_point
+    @first_serve_points_won >= Random.rand(0..100) ? 1 : 2
+  end
+
+  def generate_rally_count
+    Random.rand(1..15)
   end
 
 end

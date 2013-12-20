@@ -5,15 +5,14 @@ class Match
 	:is_doubles, :no_ad_scoring, :match_text,:mts_version,
 	:lat_coord, :long_coord, :thedevice, :won_by,:tennis_sets_attributes
 
-	def generate
-		@event_date = "Nov 12, 2013"
+	def initialize
+		@event_date = "Dec 19, 2013"
 		@event_name = "AutoMatch"
 		@player_1_id = 214
 		@player_2_id = 215
 		@player_3_id = nil
 		@player_4_id = nil
-		@number_of_sets = 1
-		@number_of_sets_text = ""
+		@number_of_sets_text = "3rd Set w/ Tiebreak"
 		@is_doubles = false
 		@no_ad_scoring = false
 		@match_text = "This was an epic auto generated match"
