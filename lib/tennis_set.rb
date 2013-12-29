@@ -8,16 +8,19 @@ class TennisSet
   end
 
   def next_score(current_score, won_by)
-    vals = current_score.split("-").map { |s| s.to_i }
+    vals = current_score[:note].split("-").map { |s| s.to_i }
     won_by == :player_won ? vals[0] += 1 : vals[1] += 1
 
     if vals[0] == 2
-      :player_won
+      note = :player_won
     elsif vals[1] == 2
-      :opponent_won
+      note = :opponent_won
     else
-      "#{vals[0]}-#{vals[1]}"
+      note = "#{vals[0]}-#{vals[1]}"
     end
+
+    {player_score: vals[0], opponent_score: vals[1], note: note}
+
   end
 
 end

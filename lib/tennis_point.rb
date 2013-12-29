@@ -12,10 +12,17 @@ class TennisPoint
   end
 
 	def generate
-		@fsxcoord = 357
-		@fsycoord = 260
-		@ssxcoord = nil
-		@ssycoord = nil
+    first_serve = generate_serve
+		@fsxcoord = first_serve[:x]
+		@fsycoord = first_serve[:y]
+    if serve_was_in?(@fsxcoord, @fsycoord)
+		  @ssxcoord = nil
+		  @ssycoord = nil
+    else
+      second_serve = generate_serve
+      @ssxcoord = second_serve[:x]
+      @ssycoord = second_serve[:y]
+    end
 		@hit_side = "Forehand"
 		@epxcoord = 109
 		@epycoord = 160
@@ -29,6 +36,9 @@ class TennisPoint
   # If I don't provide this, the init vars get into the json too.
   def as_json options={}
     {
+      "point_number" => @point_number,
+      "current_score" => @current_score,
+      "player_serving" => @player_serving,
       "fsxcoord" => @fsxcoord,
       "fsycoord" => @fsycoord,
       "ssxcoord" => @ssxcoord,
@@ -128,6 +138,16 @@ class TennisPoint
   end
 
   private
+
+  def generate_serve
+    x = Random.rand(0..700)
+    y = Random.rand(0..400)
+    {x: x, y: y}
+  end
+
+  def serve_was_in?(x,y)
+    x < 350 && y < 200
+  end
 
   def generate_who_won_point
     @first_serve_points_won >= Random.rand(0..100) ? 1 : 2

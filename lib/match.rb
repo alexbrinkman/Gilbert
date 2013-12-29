@@ -6,8 +6,8 @@ class Match
 	:lat_coord, :long_coord, :thedevice, :won_by,:tennis_sets_attributes
 
 	def initialize
-		@event_date = DateTime.now.strftime("%b %e, %G") #"Dec 19, 2013"
-		@event_name = "AutoMatch"
+		@event_date = DateTime.now.strftime("%b %e, %G") # "Dec 19, 2013"
+		@event_name = "Auto Match"
 		@player_1_id = 214
 		@player_2_id = 215
 		@player_3_id = nil
