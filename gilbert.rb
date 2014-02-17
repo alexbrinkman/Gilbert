@@ -3,20 +3,19 @@ require './lib/tennis_set'
 require './lib/tennis_game'
 require './lib/tennis_point'
 require './lib/score_board'
+require './lib/file_writer'
 require 'rubygems'
 require 'active_support/all'
 require 'ruby-debug'
 require 'yaml'
 
 config = YAML.load_file("config/config.yml")
-
-server = :player
-
 score_board = ScoreBoard.new
 match = Match.new
 
 match_score = {player_score: 0, opponent_score: 0, note: "0-0"}
 set_number = 1
+server = :player
 
 while match_score[:note] != :player_won && match_score[:note] != :opponent_won do
 
@@ -42,7 +41,7 @@ while match_score[:note] != :player_won && match_score[:note] != :opponent_won d
 			point.player_serving = server == :player ? 1 : 2
 			game.tennis_points_attributes.push(point)
 			game_score = score_board.next_score(game_score, point.won_by)
-			point_number +=1
+			point_number += 1
 		end
 
 		set.tennis_games_attributes.push(game)
@@ -62,8 +61,4 @@ end
 
 match.number_of_sets = set_number
 
-folder_name = "matches/"
-file_name = folder_name + match.event_name + DateTime.now.strftime("%Y%m%d%H%M%S") + ".json"
-File.open(file_name, 'w') { |file| file.write(match.to_json) }
-
-puts "Match JSON created successfully."
+FileWriter.create(match)
