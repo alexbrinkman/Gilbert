@@ -18,6 +18,7 @@ opponent_second_serve_points_won = 30
 
 server = :player
 
+score_board = ScoreBoard.new
 match = Match.new
 
 match_score = {player_score: 0, opponent_score: 0, note: "0-0"}
@@ -47,7 +48,7 @@ while match_score[:note] != :player_won && match_score[:note] != :opponent_won d
 			point.point_number = point_number
 			point.player_serving = server == :player ? 1 : 2
 			game.tennis_points_attributes.push(point)
-			game_score = point.next_score(game_score, point.won_by)
+			game_score = score_board.next_score(game_score, point.won_by)
 			point_number +=1
 		end
 
