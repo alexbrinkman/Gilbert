@@ -2,19 +2,13 @@ require './lib/match'
 require './lib/tennis_set'
 require './lib/tennis_game'
 require './lib/tennis_point'
+require './lib/score_board'
 require 'rubygems'
 require 'active_support/all'
 require 'ruby-debug'
+require 'yaml'
 
-first_serve_percentage = 60
-second_serve_percentage = 85
-first_serve_points_won = 10
-second_serve_points_won = 40
-
-opponent_first_serve_percentage = 40
-opponent_second_serve_percentage = 90
-opponent_first_serve_points_won = 65
-opponent_second_serve_points_won = 30
+config = YAML.load_file("config/config.yml")
 
 server = :player
 
@@ -39,8 +33,7 @@ while match_score[:note] != :player_won && match_score[:note] != :opponent_won d
 		point_number = 1
 
 		while game_score != :server_won && game_score != :returner_won do
-			point = TennisPoint.new(first_serve_percentage, second_serve_percentage,
-				first_serve_points_won, second_serve_points_won)
+			point = TennisPoint.new(config)
 			point.generate
 
 			point.player_serving = 1

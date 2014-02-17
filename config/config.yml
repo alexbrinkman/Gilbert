@@ -1,0 +1,11 @@
+player:
+  first_serve_percentage: 60
+  second_serve_percentage: 85
+  first_serve_points_won: 70
+  second_serve_points_won: 40
+
+opponent:
+  first_serve_percentage: 60
+  second_serve_percentage: 85
+  first_serve_points_won: 60
+  second_serve_points_won: 30

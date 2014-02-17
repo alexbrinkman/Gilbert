@@ -4,11 +4,11 @@ class TennisPoint
 	:hit_location, :hit_side, :epxcoord, :epycoord, :spxcoord, :spycoord, :rally_count,
 	:break_point, :won_by
 
-  def initialize(fsp, ssp, fspw, sspw)
-    @first_serve_percentage = fsp
-    @second_serve_percentage = ssp
-    @first_serve_points_won = fspw
-    @second_serve_points_won = sspw
+  def initialize(config)
+    @first_serve_percentage = config['player']['first_serve_percentage']
+    @second_serve_percentage = config['player']['second_serve_percentage']
+    @first_serve_points_won = config['player']['first_serve_points_won']
+    @second_serve_points_won = config['player']['second_serve_points_won']
   end
 
 	def generate
